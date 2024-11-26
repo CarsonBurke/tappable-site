@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tappable</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            font-family: sans-serif;
+            gap: 10px;
+        }
+
+        input {
+            border-radius: 6px;
+            padding: 6px 4px;
+            border: solid rgb(34, 34, 34) 1px;
+            min-width: 200px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0 8px 20px 0;
+        }
+
+        .banner {
+            text-align: center;
+            border-radius: 6px;
+            padding: 20px 0;
+            color: white;
+            width: 100%;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner" id="banner"></div>
+
+    <form id="form">
+        <input placeholder="Enter the admin password" type="text" id="input" />
+    </form>
+
+    <script>
+        const form = document.getElementById("form")
+        form.addEventListener("submit", checkInput)
+
+        function checkInput(e) {
+            const PASSWORD = "jason666"
+
+            // Prevent the page from refreshing (happens by default)
+            e.preventDefault()
+
+            const input = document.getElementById("input")
+            const banner = document.getElementById("banner")
+            print(input.value)
+            if (input.value != PASSWORD) {
+                showMessageBanner(banner, "red", "Incorrect password")
+                hideBannerDelayed(banner)
+                return
+            }
+
+            // Otherwise the password is valid
+
+            showMessageBanner(banner, "green", "Correct password")
+            hideBannerDelayed(banner)
+        }
+
+        function showMessageBanner(banner, color, message) {
+            banner.classList.remove("hidden")
+            banner.style.backgroundColor = color
+            banner.innerText = message
+        }
+
+        async function hideBannerDelayed(banner) {
+            await new Promise(resolve => setTimeout(resolve, 2000))
+
+            banner.classList.add("hidden")
+        }
+    </script>
+</body>
+</html>
